@@ -27,6 +27,10 @@ void setup() {
   Serial.println("Failed to initialize the chip, please confirm the chip connection");
   delay(1000);
   }
+  //Auto calibration differential pressure drift
+  lwlp.autoCorDrift();
+  //Manual calibration differential pressure drift
+  //lwlp.passiveCorDrift(/*Drift = */8.23);
 }
 void loop(void){
   DFRobot_LWLP::sLwlp_t data;

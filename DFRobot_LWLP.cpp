@@ -25,9 +25,17 @@ int DFRobot_LWLP::begin(){
     DBG("bus data access error");
     return ERR_DATA_BUS;
    }
-   getfilterData();
-   lwlp.presureDrift = lwlp.presure;
   return ERR_OK;
+}
+void DFRobot_LWLP::autoCorDrift()
+{
+  getfilterData();
+  lwlp.presureDrift = lwlp.presure;
+}
+void DFRobot_LWLP::passiveCorDrift(float drift)
+{
+
+  lwlp.presureDrift = drift;
 
 
 }

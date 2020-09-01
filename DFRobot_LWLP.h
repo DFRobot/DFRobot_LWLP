@@ -79,16 +79,25 @@ public:
    */
   int begin();
   /**
-   * @brief Get sensor data of sigle measurement
-   * @return Data of struct type 
+   * @brief Get sensor data of sigle measurement.
+   * @return Data of struct type .
    */
   sLwlp_t getData(void);
   /**
-   * @brief Filter processing funcition, get sensor data processed by this function 
-   * @return Data of struct type 
+   * @brief Filter processing funcition, get sensor data processed by this function .
+   * @return Data of struct type .
    */
   sLwlp_t getfilterData(void);
-  
+  /**
+   * @brief Auto calibration differential pressure drift.
+   */
+  void autoCorDrift();
+  /**
+   * @brief Manual calibration differential pressure drift.
+   * @param drift
+   */
+  void passiveCorDrift(float drift);
+
 private:
   sLwlp_t  lwlp;
   TwoWire *_pWire;
