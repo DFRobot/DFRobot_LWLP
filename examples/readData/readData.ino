@@ -1,12 +1,12 @@
 /*!
  * @file readData.ino
- * @brief Read pressure difference and temperature value of the differential pressure sensor 
+ * @brief read the pressure difference
+ * @details Read pressure difference and temperature value of the differential pressure sensor 
  * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
  * @version  V1.0
  * @date  2020-05-14
- * @get from https://www.dfrobot.com
  * @url https://github.com/DFRobot/DFRobot_LWLP
  */
 #include <DFRobot_LWLP.h>
@@ -27,10 +27,6 @@ void setup() {
   Serial.println("Failed to initialize the chip, please confirm the chip connection");
   delay(1000);
   }
-  //Auto calibration differential pressure drift
-  lwlp.autoCorDrift();
-  //Manual calibration differential pressure drift
-  //lwlp.passiveCorDrift(/*Drift = */8.23);
 }
 void loop(void){
   DFRobot_LWLP::sLwlp_t data;

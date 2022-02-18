@@ -1,22 +1,19 @@
 /*!
  * @file DFRobot_LWLP.h
  * @brief Define the infrastructure of the DFRobot_LWLP class
+ * @details The differential pressure between two probes of the \
+ * @n differential pressure sensor can be obtained by this drive
  * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- * @licence     The MIT License (MIT)
+ * @License     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
  * @version  V1.0
- * @date  2020-05-26
- * @get from https://www.dfrobot.com
+ * @date  2020-05-14
  * @url https://github.com/DFRobot/DFRobot_LWLP
  */
  
 #ifndef DFROBOT_LWLP_H
 #define DFROBOT_LWLP_H
-#if ARDUINO >= 100
 #include "Arduino.h"
-#else
-#include "WProgram.h"
-#endif
 #include <Wire.h>
 
 //#define ENABLE_DBG
@@ -28,21 +25,25 @@
 #endif
 
 
-#define SENSOR_TYPE    LWPX  //Sensor type 
-#define MAX_PRESURE   600 //Maximum value of pressure range(Pa)
-#define MIN_PRESURE    600 //Minimum value of pressure range(Pa)
+#define SENSOR_TYPE    LWPX  ///<Sensor type 
+#define MAX_PRESURE    600 ///<Maximum value of pressure range(Pa)
+#define MIN_PRESURE    600 ///<Minimum value of pressure range(Pa)
 
-#define MAX_TEMP    85.0 //Highest value of temperature range(℃)
-#define MIN_TEMP     40.0 //Lowest value of temperature range(℃)
+#define MAX_TEMP       85.0 ///<Highest value of temperature range(℃)
+#define MIN_TEMP       40.0 ///<Lowest value of temperature range(℃)
 
 
 
 class DFRobot_LWLP
 {
 public:
-  #define ERR_OK             0      //No error
-  #define ERR_DATA_BUS      -1      //Data bus error
-  #define ERR_IC_VERSION    -2      //Chip version does not match
+  #define ERR_OK             0      ///<No error
+  #define ERR_DATA_BUS      -1      ///<Data bus error
+  #define ERR_IC_VERSION    -2      ///<Chip version does not match
+  
+  /**
+   * @struct sLwlp_t
+   */ 
   typedef struct
   {
     uint8_t  status;/**<Status Bit>*/
@@ -67,49 +68,46 @@ public:
     float  presureDrift;
   }sLwlp_t ;
   
-  /*!
+  /**
+   * @fn DFRobot_LWLP
    * @brief Construct the function
    * @param pWire IC bus pointer object and construction device, can both pass or not pass parameters, Wire in default.
    */
   DFRobot_LWLP(TwoWire *pWire = &Wire);
 
   /**
+   * @fn begin
    * @brief Initialize the function
    * @return Return 0 indicates a successful initialization, while other values indicates failure and return to error code.
    */
   int begin();
   /**
-   * @brief Get sensor data of sigle measurement.
-   * @return Data of struct type .
+   * @fn getData
+   * @brief Get sensor data of sigle measurement
+   * @return Data of struct type 
    */
   sLwlp_t getData(void);
   /**
-   * @brief Filter processing funcition, get sensor data processed by this function .
-   * @return Data of struct type .
+   * @fn getfilterData
+   * @brief Filter processing funcition, get sensor data processed by this function 
+   * @return Data of struct type 
    */
   sLwlp_t getfilterData(void);
-  /**
-   * @brief Auto calibration differential pressure drift.
-   */
-  void autoCorDrift();
-  /**
-   * @brief Manual calibration differential pressure drift.
-   * @param drift
-   */
-  void passiveCorDrift(float drift);
-
+  
 private:
   sLwlp_t  lwlp;
   TwoWire *_pWire;
   uint8_t _address = 0x00;
   void configChip(void);//Configure chip 
   /**
+   * @fn write
    * @brief Transport data to chip
-   * @param Data address
-   * @param Data length
+   * @param pBuf address
+   * @param size length
    */
   void write(const void* pBuf,size_t size);
   /**
+   * @fn readData
    * @brief Write command to sensor chip.
    * @param pBuf  The data contained in the command.
    * @param size  Number of command data

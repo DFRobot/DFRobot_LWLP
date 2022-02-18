@@ -2,11 +2,10 @@
  * @file DFRobot_LWLP.cpp
  * @brief Define the infrastructure of the DFRobot_LWLP class
  * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- * @licence     The MIT License (MIT)
+ * @License     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
  * @version  V1.0
- * @date  2020-05-26
- * @get from https://www.dfrobot.com
+ * @date  2020-05-14
  * @url https://github.com/DFRobot/DFRobot_LWLP
  */
 
@@ -25,17 +24,9 @@ int DFRobot_LWLP::begin(){
     DBG("bus data access error");
     return ERR_DATA_BUS;
    }
+   getfilterData();
+   lwlp.presureDrift = lwlp.presure;
   return ERR_OK;
-}
-void DFRobot_LWLP::autoCorDrift()
-{
-  getfilterData();
-  lwlp.presureDrift = lwlp.presure;
-}
-void DFRobot_LWLP::passiveCorDrift(float drift)
-{
-
-  lwlp.presureDrift = drift;
 
 
 }
