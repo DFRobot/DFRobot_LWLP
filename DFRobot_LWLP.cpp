@@ -61,12 +61,19 @@ bool DFRobot_LWLP::dataReady(void) {
 }
 
 DFRobot_LWLP::sLwlp_t DFRobot_LWLP::getData(void) {
-  // A blocking call starts a fresh conversion, replacing any pending one.
+  // A blocking call replaces any pending conversion.
   _measurementPending = false;
+
   if (!startMeasurement()) {
     return lwlp;
   }
-  delay(30);
+
+  // Wait until the same readiness condition used by asynchronous callers
+  // actually passes. Do not assume delay(30) guarantees readiness.
+  while (!dataReady()) {
+    delay(1);
+  }
+
   return readData();
 }
 
