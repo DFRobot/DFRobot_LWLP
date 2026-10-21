@@ -51,6 +51,42 @@ This high-resolution differential pressure sensor with I2C communication is used
 
 ```
 
+## Non-blocking measurements
+
+See [readDataNonBlocking](examples/readDataNonBlocking/readDataNonBlocking.ino).
+
+```cpp
+if (lwlp.startMeasurement()) {
+  // Return to the main loop while conversion completes.
+}
+// In subsequent loop iterations:
+if (lwlp.dataReady()) {
+  DFRobot_LWLP::sLwlp_t data;
+  if (lwlp.readData(data)) {
+    // Use data.presure and data.temperature.
+  }
+}
+```
+
+- `startMeasurement()` returns false if a conversion is already pending or
+  the command cannot be transmitted. It adds no delays.
+- `dataReady()` checks whether 30 ms have elapsed after the command completes.
+  It handles `millis()` rollover and does not poll a hardware ready flag.
+- `readData(data)` returns false without changing the output if called before
+  readiness or on a short I2C read. An early call leaves the conversion pending;
+  an attempted read consumes it even on failure. Start a new conversion to retry.
+- `readData()` returns the latest cached result on failure or an early call.
+  The cache is zero-initialized before the first successful measurement.
+- I2C transfers themselves remain synchronous and subject to the platform's bus
+  timeout. These methods avoid waiting for sensor conversion.
+- `getData()` remains blocking and starts a fresh conversion, replacing any
+  pending non-blocking measurement. `getfilterData()` and the startup calibration
+  in `begin()` also remain blocking. Use one caller per sensor instance.
+
+The conversion formulas, pressure calibration, public data structure, and existing
+method signatures are unchanged. The command bytes are queued together before
+`endTransmission()`; the former delays between buffer writes are removed.
+
 ## Compatibility
 
 MCU           | Work Well    | Work Wrong   | Untested    | Remarks
