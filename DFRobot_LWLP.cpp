@@ -50,14 +50,14 @@ bool DFRobot_LWLP::startMeasurement(void) {
   if (!complete || error != 0) {
     return false;
   }
-  _measurementStarted = (uint32_t)millis();
+  _measurementStarted = (uint32_t)micros();
   _measurementPending = true;
   return true;
 }
 
 bool DFRobot_LWLP::dataReady(void) {
   return _measurementPending &&
-         (uint32_t)((uint32_t)millis() - _measurementStarted) >= 30;
+       (uint32_t)((uint32_t)micros() - _measurementStarted) >= 30000UL;
 }
 
 DFRobot_LWLP::sLwlp_t DFRobot_LWLP::getData(void) {
