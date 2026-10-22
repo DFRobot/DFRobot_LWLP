@@ -28,7 +28,7 @@ void loop() {
     }
   }
 
-  if (measuring && lwlp.dataReady()) {
+  if (measuring && lwlp.dataReady()) {   // this check for dataReady() doesn't block for 30 ms
     DFRobot_LWLP::sLwlp_t data;
     if (lwlp.readData(data)) {
       Serial.print("Temperature: ");
