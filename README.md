@@ -71,7 +71,7 @@ if (lwlp.dataReady()) {
 - `startMeasurement()` returns false if a conversion is already pending or
   the command cannot be transmitted. It adds no delays.
 - `dataReady()` checks whether 30 ms have elapsed after the command completes.
-  It handles `millis()` rollover and does not poll a hardware ready flag.
+  It handles `micros()` rollover and does not poll a hardware ready flag.
 - `readData(data)` returns false without changing the output if called before
   readiness or on a short I2C read. An early call leaves the conversion pending;
   an attempted read consumes it even on failure. Start a new conversion to retry.
