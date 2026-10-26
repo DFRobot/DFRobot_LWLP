@@ -6,8 +6,8 @@
  * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @License     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
- * @version  V1.0
- * @date  2020-05-14
+ * @version  V1.0.1
+ * @date  2026-10-26
  * @url https://github.com/DFRobot/DFRobot_LWLP
  */
  
@@ -89,6 +89,7 @@ public:
   sLwlp_t getData(void);
 
   /**
+   * @fn startMeasurement
    * @brief Send a measurement command without waiting for conversion.
    * @return true on success; false if a measurement is pending or I2C fails.
    * @note I2C transactions are synchronous; no conversion delay is added.
@@ -96,12 +97,14 @@ public:
   bool startMeasurement(void);
 
   /**
+   * @fn dataReady
    * @brief Return true when 30 ms have elapsed since a successful start.
    * @note Checks elapsed time only; does not access the sensor or I2C bus.
    */
   bool dataReady(void);
 
   /**
+   * @fn readData
    * @brief Read a ready measurement without waiting for conversion.
    * @return Latest cached data if called early, without a start, or on I2C error.
    * @note Use readData(data) when the caller needs explicit success reporting.
@@ -109,7 +112,9 @@ public:
   sLwlp_t readData(void);
 
   /**
+   * @fn readData
    * @brief Read a ready measurement into data.
+   * @param data Struct that receives the measurement.
    * @return true on a complete read; otherwise false, leaving data unchanged.
    * @note An early call keeps the measurement pending. An attempted I2C read
    * consumes it, including on error; start another measurement to retry.

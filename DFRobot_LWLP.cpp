@@ -4,8 +4,8 @@
  * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @License     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
- * @version  V1.0
- * @date  2020-05-14
+ * @version  V1.0.1
+ * @date  2026-10-26
  * @url https://github.com/DFRobot/DFRobot_LWLP
  */
 

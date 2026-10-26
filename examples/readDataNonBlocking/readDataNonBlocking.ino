@@ -1,7 +1,13 @@
 /*!
  * @file readDataNonBlocking.ino
  * @brief Keep loop responsive while the sensor converts a measurement.
- * @license The MIT License (MIT)
+ * @details Start a measurement, keep running other code during the sensor conversion, then read the result when it is ready
+ * @copyright   Copyright (c) 2026 David J. Schinsing
+ * @licence     The MIT License (MIT)
+ * @author [David J. Schinsing](https://github.com/dschinsing3)
+ * @version  V1.0.1
+ * @date  2026-10-26
+ * @url https://github.com/DFRobot/DFRobot_LWLP
  */
 #include <DFRobot_LWLP.h>
 

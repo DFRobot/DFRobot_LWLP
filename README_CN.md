@@ -47,6 +47,30 @@
    * @return 录波后的数据集合 
    */
   sLwlp_t getfilterData(void);
+  /**
+   * @fn startMeasurement
+   * @brief 发送测量命令，不等待转换完成
+   * @return true(成功)；已有测量未读取或I2C通信失败时返回false
+   */
+  bool startMeasurement(void);
+  /**
+   * @fn dataReady
+   * @brief 启动测量后已过30 ms时返回true，只判断时间，不访问传感器
+   */
+  bool dataReady(void);
+  /**
+   * @fn readData
+   * @brief 读取已完成的测量结果，不等待转换
+   * @return 提前调用或读取失败时返回上一次缓存的数据
+   */
+  sLwlp_t readData(void);
+  /**
+   * @fn readData
+   * @brief 读取已完成的测量结果到data
+   * @param data 接收测量结果的结构体
+   * @return true(读取成功)；提前调用或读取失败时返回false，data保持不变
+   */
+  bool readData(sLwlp_t &data);
 
 ```
 
