@@ -48,6 +48,31 @@ This high-resolution differential pressure sensor with I2C communication is used
    * @return Data of struct type 
    */
   sLwlp_t getfilterData(void);
+  /**
+   * @fn startMeasurement
+   * @brief Send a measurement command without waiting for conversion.
+   * @return true on success; false if a measurement is pending or I2C fails.
+   */
+  bool startMeasurement(void);
+  /**
+   * @fn dataReady
+   * @brief Return true when 30 ms have elapsed since a successful start.
+   * @note Checks elapsed time only; does not access the sensor or I2C bus.
+   */
+  bool dataReady(void);
+  /**
+   * @fn readData
+   * @brief Read a ready measurement without waiting for conversion.
+   * @return Latest cached data if called early, without a start, or on I2C error.
+   */
+  sLwlp_t readData(void);
+  /**
+   * @fn readData
+   * @brief Read a ready measurement into data.
+   * @param data Struct that receives the measurement.
+   * @return true on a complete read; otherwise false, leaving data unchanged.
+   */
+  bool readData(sLwlp_t &data);
 
 ```
 
